@@ -1,0 +1,15 @@
+*.png
+*.pdf
+*.jpg
+*.jpeg
+
+*.out
+*.o
+*.d
+
+*.csv
+*.txt
+
+
+#*
+*~
