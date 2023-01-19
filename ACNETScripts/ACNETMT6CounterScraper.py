@@ -47,7 +47,7 @@ def plotBeamSpills(data):
     plt.plot(time, np.cumsum(counts > 1000))
     plt.xticks(rotation = 45)
     plt.xlabel("time")
-    plt.ylabel("beam spils")
+    plt.ylabel("beam spills")
     plt.tight_layout()
     plt.savefig("BeamSpills.png")
 
