@@ -76,7 +76,7 @@ $(MY_PROGRAM) :
 	@echo Linking $@
 	@echo  	
 	@echo  	
-	$(CPP) $(CPP_OPTIONS) -o $@ $(EVERYTHING_INCLUDE) $(EVERYTHING_LIBS)  $(MY_PROGRAM).cc $(CPP_OPTIONS) $<
+	$(CPP) $(CPP_OPTIONS) -o $@  $(MY_PROGRAM).cc $(EVERYTHING_INCLUDE) $(EVERYTHING_LIBS) $(CPP_OPTIONS) $<
 	#$(CPP) $(CPP_OPTIONS) -o $@ $(MY_OBJECTS:=.o) $(EVERYTHING_INCLUDE) $(EVERYTHING_LIBS)
 
 clean :
