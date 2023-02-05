@@ -314,6 +314,39 @@
  bmpl -> cd(2);
  h121 -> Draw();
 
+ TCanvas *c2 = new TCanvas("X y","Some Plots",300,100,400,600);
+ c2 -> Divide(1,2);
+ c2 -> cd(1);
+ gPad->SetLogy(1);
+ for(int i = 0; i < 8; i++ ) {
+    h150[i]->SetLineWidth(2);
+ }
+ h150[0]->SetFillColor(0);
+ h150[0] -> Draw();
+ h150[2]->SetFillColor(0);
+ h150[2]->SetLineColor(2);
+ h150[2] -> Draw("same");
+ h150[4]->SetFillColor(0);
+ h150[4]->SetLineColor(4);
+ h150[4] -> Draw("same");
+ h150[6]->SetFillColor(0);
+ h150[6]->SetLineColor(8);
+ h150[6] -> Draw("same");
+
+ c2 -> cd(2);
+ h150[1]->SetFillColor(0);
+ gPad->SetLogy(1);
+ h150[1] -> Draw();
+ h150[3]->SetFillColor(0);
+ h150[3]->SetLineColor(2);
+ h150[3] -> Draw("same");
+ h150[5]->SetFillColor(0);
+ h150[5]->SetLineColor(4);
+ h150[5] -> Draw("same");
+ h150[7]->SetFillColor(0);
+ h150[7]->SetLineColor(8);
+ h150[7] -> Draw("same");
+
 
 
   ff-> Write();
