@@ -4,10 +4,12 @@ set -o errexit
 
 SPILL=-1
 N_SPILLS=-1
+N_PREV=
 
 function print_the_help {
   echo "USAGE: ${0} [-s <spill_number>] [-n <n_spills>]"
   echo "  OPTIONS: "
+  echo "            -N,--N-prev        Process Nth previous file "
   echo "            -s,--spill         Start at spill number"
   echo "            -n,--n_spills      Number of spills"
   exit 
@@ -44,6 +46,11 @@ do
       shift # past argument
       shift # past value
       ;;
+    -N|--N_prev)
+      N_PREV="$2"
+      shift # past argument
+      shift # past value
+      ;;
     -n|--n_spills)
       N_SPILLS="$2"
       shift # past argument
@@ -57,16 +64,16 @@ do
       ;;
   esac
 done
-set -- "${POSITIONAL[@]}" # restore positional parameters
+#set -- "${POSITIONAL[@]}" # restore positional parameters
 
-back=$1
-[[ ! "${back}" ]] && back=1
+back=${N_PREV}
+[[ ! "${N_PREV}" ]] && back=1
 
 latest_num=$(basename $(ls -rt $HOME/MWPC/data/*.log | tail -n ${back} | head -n1  ) | sed 's/exp_//' | sed 's/\.log//')
 echo $latest_num
-res=$(./WCAnalyzer/WCConverter $latest_num $SPILL $N_SPILLS)
+./WCAnalyzer/WCConverter $latest_num $SPILL $N_SPILLS | tee  /tmp/process_latest.log
 #echo $res
-echo  $res |  tail -n1
+cat /tmp/process_latest.log |  tail -n1
 
 if [[ "${NANOWIRES}" != "" ]] ; then
   echo "$latest_num" >> $HOME/nanowires/wire_chamber_file_list.txt 

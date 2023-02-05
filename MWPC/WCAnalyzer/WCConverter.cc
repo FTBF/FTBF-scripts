@@ -55,6 +55,8 @@ int main(int argc, char* argv[]) {
   if (argc > 3) {
     n_spills = atoi(argv[3]);
   }
+  std::cout << "spill_num = " << spill_num << "\n";
+  std::cout << "n_spills = " << n_spills << "\n";
   sprintf(hname, "rootfiles/WCData_%s.root", RunNo.c_str());
   TFile* outroot = new TFile(hname, "recreate");
   TH1F*  WC_x[4];
@@ -125,17 +127,23 @@ int main(int argc, char* argv[]) {
     istringstream  iss(fileline);
     vector<string> entries;
     copy(istream_iterator<string>(iss), istream_iterator<string>(),
-         back_inserter<vector<string>>(entries));
+         back_inserter<vector<string> >(entries));
     if (entries[0] == "SPILL") {
       current.spill = atoi(entries[1].c_str());
       if (current.spill < spill_num) {
         ignore_spill = true;
-      }
-      if(n_spills>0 && total_spills > n_spills){
+      } else if ((n_spills>0) && (total_spills >= n_spills)){
         break;
+        ignore_spill = true;
+      } else {
+        ignore_spill = false;
+        total_spills++;
       }
-      total_spills++;
-      //			cout<<"found spill "<<current.spill<<endl;
+      //cout << " total_spills = " << total_spills << "\n";
+      //cout<<"found spill "<<current.spill<<endl;
+    }
+    if(ignore_spill){
+      continue;
     }
     if (entries[0] == "EVENT") {
       //			cout<<"Event "<<entries[1]<<endl;
