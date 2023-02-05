@@ -2,7 +2,7 @@
 
 ## MWPC
 
-* process_latest.sh
+* `process_latest.sh`
 
 ## ACNET
 
