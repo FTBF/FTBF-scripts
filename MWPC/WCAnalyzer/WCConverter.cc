@@ -49,6 +49,10 @@ int main(int argc, char *argv[])
 {
   char hname[300];
   string RunNo=argv[1];
+  int spill_num = -1;
+  if(argc>2){
+    spill_num = atoi(argv[2]);
+  }
   sprintf(hname,"rootfiles/WCData_%s.root",RunNo.c_str());
   TFile* outroot=new TFile(hname,"recreate");
   TH1F* WC_x[4];
