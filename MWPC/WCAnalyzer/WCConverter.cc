@@ -383,7 +383,7 @@ int main(int argc, char* argv[]) {
   line.DrawLine(0, 60, 120, 60);
 
   cc->cd(4);
-  gPad->SetLogz(true);
+  //gPad->SetLogz(true);
   WCXY[3]->Draw("colz");
   WCXY[3]->SetTitle("WC4 ; x [mm]; y [mm]");
   tl.DrawLatex(0.6, 0.96, Form("#mu_{x,y} = (%3.2f,%3.2f)", x_means[3], y_means[3]));

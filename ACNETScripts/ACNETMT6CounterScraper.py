@@ -11,7 +11,8 @@ acnet_webString = 'http://www-bd.fnal.gov/cgi-bin/acl.pl?acl=logger_get/start='
 # Function to construct URL and write results to text file
 def get_acnet_data(T1, T2, device):
     # build URL to be queried and decode data to human readable content
-    URL = acnet_webString+str(T1)+'/end='+str(T2)+'/node=Swyd+'+str(device)
+#    URL = acnet_webString+str(T1)+'/end='+str(T2)+'/node=Swyd+'+str(device)
+    URL = acnet_webString+str(T1)+'/end='+str(T2)+'+'+str(device)
     #print(URL)
     response = url.urlopen(URL).read()
     decoded_response = response.decode()
@@ -62,11 +63,21 @@ def plotParticlesOnTarget(data):
     plt.savefig("particlesOnTarget.png")
 
 def saveData(data, fname):
+    for i in data:
+        print(i, data[i])
     with open(fname, "w") as f:
         f.write("time, " + ", time, ".join(data.keys())  + "\n")
-        for i in range(len(data[list(data.keys())[0]][0])):
+        length = 0;
+        for key in list(data.keys()):
+            if len(data[key][0]) > length:
+                length = len(data[key][0])
+        for i in range(length):
             for name, device_data in data.items():
-                f.write(", ".join( ["%s, %d"%(datetime.strftime(device_data[0][i], "%d-%b-%Y-%H:%M:%S"), device_data[1][i]) for name, device_data in data.items()] ) + "\n")
+                if i < len(device_data[0]):
+                    f.write("%s, %d"%(datetime.strftime(device_data[0][i], "%d-%b-%Y-%H:%M:%S"), device_data[1][i]) + ", ")
+                else:
+                    f.write("-, -, ")
+            f.write("\n")
 
 if __name__=="__main__":
 
