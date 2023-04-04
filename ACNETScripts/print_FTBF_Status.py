@@ -50,9 +50,9 @@ class pyACNET():
     self.nextspilltime = (60 - self.sctime + spill_length)%60
     print("SC1+SC2+SC3+Spill (F:MTSCL5)\t{:>3.0f} Cnts".format(self.MTSCL5))
     print("Next Spill\t{:>20.0f} Sec".format(self.nextspilltime))
-    print("G:SCTIME\t{:>20.0f} Sec".format(self.sctime))
-    print("F:MT5VT2\t{:>19.0f} Amps".format(self.MT6VT2))
-    print("F:MT5HT2\t{:>19.0f} Amps".format(self.MT6HT2))
+    print("G:SCTIME\t{:>20.2f} Sec".format(self.sctime))
+    print("F:MT5VT2\t{:>19.2f} Amps".format(self.MT6VT2))
+    print("F:MT5HT2\t{:>19.2f} Amps".format(self.MT6HT2))
 
 def main():
   __acnet = pyACNET()
